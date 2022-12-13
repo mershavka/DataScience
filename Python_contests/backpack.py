@@ -7,17 +7,32 @@ def main():
     n, W = list(map(int, input().split()))
     price_volume = [list(map(int, input().split())) for i in range(n)]
     sp_price = [[p/v, v] for p, v in price_volume]
-    sp_price.sort()
+    sp_price.sort(reverse=True)
     result = 0
-    while W and sp_price:
-        sp = sp_price[-1][0]
-        v = sp_price[-1][1]
-        if v > W:
-            v = W
-        result += v * sp
-        W -= v
-        sp_price.pop(-1)
-    print(result)
+    for sp, v in sp_price:
+        can_take = min(v, W)
+        result += can_take * sp
+        W -= can_take
+        if W <= 0:
+            break
+    print('{:.3f}'.format(result))
+
+import heapq
+
+def main_heap():
+    # Реализация через кучу
+    n, W = list(map(int, input().split()))
+    price_volume = [list(map(int, input().split())) for i in range(n)]
+    sp_price = [(-p/v, v)for p, v in price_volume]
+    heapq.heapify(sp_price)
+    result = 0
+    while sp_price and W:
+        sp, v = heapq.heappop(sp_price)
+        can_take = min(v, W)
+        result -= can_take * sp
+        W -= can_take
+    print('{:.3f}'.format(result))
+
 
 if __name__ == "__main__":
     main()
