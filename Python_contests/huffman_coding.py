@@ -55,14 +55,14 @@ def main():
     while len(r) > 1:
         least = r.pop(-1)
         if isinstance(least[0], Tree):
-            left = least[0]
-        else:
-            left = Tree(*least)
-        least = r.pop(-1)
-        if isinstance(least[0], Tree):
             right = least[0]
         else:
             right = Tree(*least)
+        least = r.pop(-1)
+        if isinstance(least[0], Tree):
+            left = least[0]
+        else:
+            left = Tree(*least)
         sum_weight = left.weight + right.weight
         tree = Tree(None, sum_weight, left, right)
         r.append((tree, sum_weight))
