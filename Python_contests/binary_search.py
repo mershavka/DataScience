@@ -19,6 +19,34 @@ def binary_search(value, sorted_list):
     index = index + 1 if index >= 0 else index
     return index
 
+def left_binary_search(value, sorted_list):
+    # l < x <= r
+    left = -1
+    right = len(sorted_list)
+    while right - left > 1:
+        mean = (left + right)//2
+        if sorted_list[mean] < value:
+            left = mean
+        else:
+            right = mean
+    if sorted_list[right] == value:
+        return right
+    return -1
+
+def right_binary_search(value, sorted_list):
+    # l <= x < r
+    left = -1
+    right = len(sorted_list)
+    while right - left > 1:
+        mean = (left + right)//2
+        if sorted_list[mean] <= value:
+            left = mean
+        else:
+            right = mean
+    if sorted_list[left] == value:
+        return left
+    return -1
+
 def main():
     n, *A = map(int, input().split())
     k, *B = map(int, input().split())
